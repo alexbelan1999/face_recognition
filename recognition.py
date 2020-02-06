@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 import image_to_recognition
 import cv2
+import datetime
 
 known_face_encodings = []
 known_face_names = []
@@ -12,7 +13,8 @@ unknown_image = face_recognition.load_image_file("testphoto/bill_elon_steve1.jpg
 img = cv2.imread("testphoto/bill_elon_steve1.jpg")
 face_locations = face_recognition.face_locations(unknown_image)
 face_encodings = face_recognition.face_encodings(unknown_image, face_locations)
-print(face_locations)
+names = []
+
 for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
     matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
     name = "Unknown"
@@ -20,7 +22,7 @@ for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodi
     best_match_index = np.argmin(face_distances)
     if matches[best_match_index]:
         name = known_face_names[best_match_index]
-        print(name)
+        names.append(name)
 
     cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 3)
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -29,6 +31,10 @@ for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodi
 
     cv2.putText(img, name, (left + 5, bottom - 5), font, 1.0, (255, 255, 0), 3)
 
-cv2.imwrite("savephoto/image_with_boxes.jpg", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+basename = ""
+for i in names:
+    basename += str(i) + '_'
+suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
+filename = "".join([basename, suffix])
+path = "savephoto/" + filename + '.jpg'
+cv2.imwrite(path, img)
