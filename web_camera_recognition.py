@@ -3,7 +3,7 @@ import numpy as np
 import image_to_recognition
 import cv2
 import datetime
-import glob
+import time
 
 known_face_encodings = []
 known_face_names = []
@@ -12,6 +12,7 @@ image_to_recognition.images(known_face_encodings, known_face_names)
 video_capture = cv2.VideoCapture(0)
 
 while True:
+    clock1 = time.time()
     ret, frame = video_capture.read()
     frame = cv2.flip(frame, 1)
     rgb_frame = frame[:, :, ::-1]
@@ -49,6 +50,7 @@ while True:
         cv2.imwrite(path, frame)
 
     cv2.imshow('Video', frame)
+    print("Time:", time.time() - clock1)
     key = cv2.waitKey(100)
     if key == 27:
         break
