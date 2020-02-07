@@ -1,5 +1,3 @@
-import datetime
-
 import psycopg2
 
 
@@ -49,6 +47,3 @@ def select_all():
     finally:
         if exit == True:
             connection.close()
-
-
-select_all()

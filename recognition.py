@@ -47,8 +47,7 @@ for file in glob.glob("testphoto/*"):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i in names:
         basename += str(i) + '_'
-        persons.append([str(i),timestamp])
-
+        persons.append([str(i), timestamp])
 
     filename = "".join([basename, suffix])
     path = "savephoto/" + filename + '.jpg'
@@ -56,6 +55,7 @@ for file in glob.glob("testphoto/*"):
     if len(names) > 0:
         cv2.imwrite(path, img)
         pg.insert(persons)
+
     print("Time 4:", time.time() - clock5)
     print("Time 5:", time.time() - clock3)
 

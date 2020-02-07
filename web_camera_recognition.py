@@ -4,6 +4,7 @@ import image_to_recognition
 import cv2
 import datetime
 import time
+import postgresql as pg
 
 known_face_encodings = []
 known_face_names = []
@@ -39,17 +40,22 @@ while True:
 
     print("Person: ", names)
     basename = ""
+    persons = []
+    suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i in names:
         basename += str(i) + '_'
+        persons.append([str(i), timestamp])
 
-    suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
     filename = "".join([basename, suffix])
     path = "savephoto/" + filename + '.jpg'
 
     if len(names) > 0:
         cv2.imwrite(path, frame)
+        pg.insert(persons)
 
     cv2.imshow('Video', frame)
+
     print("Time:", time.time() - clock1)
     key = cv2.waitKey(100)
     if key == 27:
