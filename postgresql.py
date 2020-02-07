@@ -1,3 +1,5 @@
+import datetime
+
 import psycopg2
 
 
@@ -49,6 +51,4 @@ def select_all():
             connection.close()
 
 
-persons = [["Alex_Belan", "2020-02-07 17:19:54"], ["Vitaly_Belan", "2020-02-07 17:20:31"]]
-insert(persons)
 select_all()

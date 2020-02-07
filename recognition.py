@@ -5,6 +5,7 @@ import cv2
 import datetime
 import glob
 import time
+import postgresql as pg
 
 clock1 = time.time()
 known_face_encodings = []
@@ -41,15 +42,20 @@ for file in glob.glob("testphoto/*"):
     clock5 = time.time()
     print(file, " ", names)
     basename = ""
+    persons = []
+    suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i in names:
         basename += str(i) + '_'
+        persons.append([str(i),timestamp])
 
-    suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
+
     filename = "".join([basename, suffix])
     path = "savephoto/" + filename + '.jpg'
 
     if len(names) > 0:
         cv2.imwrite(path, img)
+        pg.insert(persons)
     print("Time 4:", time.time() - clock5)
     print("Time 5:", time.time() - clock3)
 
