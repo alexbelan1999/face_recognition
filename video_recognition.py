@@ -8,7 +8,7 @@ import postgresql as pg
 import dump_and_load_pickle as dalp
 
 clock1 = time.time()
-input_movie = cv2.VideoCapture("Bill.mp4")
+input_movie = cv2.VideoCapture("Elon.mp4")
 length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
 
 # known_face_encodings = []
