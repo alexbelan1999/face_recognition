@@ -6,13 +6,19 @@ import datetime
 import glob
 import time
 import postgresql as pg
+import dump_and_load_pickle as dalp
 
 clock1 = time.time()
 
-known_face_encodings = []
-known_face_names = []
+# known_face_encodings = []
+# known_face_names = []
 
-image_to_recognition.images(known_face_encodings, known_face_names)
+# image_to_recognition.images(known_face_encodings, known_face_names)
+# dalp.dump(known_face_encodings,"encodings1")
+# dalp.dump(known_face_names,"names1")
+known_face_encodings = dalp.load("encodings1")
+known_face_names = dalp.load("names1")
+
 
 for file in glob.glob("testphoto/*"):
     unknown_image = face_recognition.load_image_file(file)
