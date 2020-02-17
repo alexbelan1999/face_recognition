@@ -16,8 +16,8 @@ clock1 = time.time()
 # image_to_recognition.images(known_face_encodings, known_face_names)
 # dalp.dump(known_face_encodings,"encodings1")
 # dalp.dump(known_face_names,"names1")
-known_face_encodings = dalp.load("encodings1")
-known_face_names = dalp.load("names1")
+known_face_encodings = dalp.load("encodings2")
+known_face_names = dalp.load("names2")
 
 
 for file in glob.glob("testphoto/*"):
