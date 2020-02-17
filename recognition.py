@@ -51,7 +51,8 @@ for file in glob.glob("testphoto/*"):
     print(file, " ", names)
     basename = ""
     persons = []
-
+    print("Дата: ", datetime.datetime.now().strftime("%d-%m-%Y"))
+    print("Время: ", datetime.datetime.now().strftime("%H:%M:%S"))
     suffix = datetime.datetime.now().strftime("%H_%M_%S_%d_%m_%Y")
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
